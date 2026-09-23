@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS portfolio (
+ id INTEGER PRIMARY KEY CHECK(id=1),
+ starting_usdt REAL NOT NULL,
+ cash_usdt REAL NOT NULL,
+ realized_pnl REAL NOT NULL DEFAULT 0,
+ updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS positions (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ symbol TEXT NOT NULL,
+ strategy TEXT NOT NULL,
+ entry REAL NOT NULL,
+ qty REAL NOT NULL,
+ sl REAL NOT NULL,
+ tp1 REAL NOT NULL,
+ tp2 REAL NOT NULL,
+ opened_at TEXT NOT NULL,
+ status TEXT NOT NULL DEFAULT 'OPEN'
+);
+
+CREATE TABLE IF NOT EXISTS trades (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ symbol TEXT NOT NULL,
+ strategy TEXT NOT NULL,
+ entry REAL NOT NULL,
+ exit REAL NOT NULL,
+ qty REAL NOT NULL,
+ pnl REAL NOT NULL,
+ reason TEXT NOT NULL,
+ opened_at TEXT NOT NULL,
+ closed_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS scans (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ symbol TEXT NOT NULL,
+ timeframe TEXT NOT NULL,
+ price REAL NOT NULL,
+ regime TEXT NOT NULL,
+ strategy TEXT NOT NULL,
+ decision TEXT NOT NULL,
+ rsi REAL,
+ adx REAL,
+ atr REAL,
+ ema21 REAL,
+ ema50 REAL,
+ ema200 REAL,
+ entry REAL,
+ sl REAL,
+ tp1 REAL,
+ tp2 REAL,
+ created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS equity_history (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ equity REAL NOT NULL,
+ cash REAL NOT NULL,
+ realized_pnl REAL NOT NULL,
+ created_at TEXT NOT NULL
+);
+
+INSERT OR IGNORE INTO portfolio
+(id,starting_usdt,cash_usdt,realized_pnl,updated_at)
+VALUES
+(1,500,500,0,'1970-01-01T00:00:00Z');
